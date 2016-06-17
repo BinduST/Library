@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Result</h1>
+<form th:action="@{/}" method="post">
+    <div th:text="'Username: ' + ${student.username}"></div>
+    <div th:text="'Password: ' + ${student.password}"></div>
+    <div class="allBooks">book details....</div>
+    <!--<input type="submit" value="Take Book" name="take"/>-->
+</form>
+</body>
+</html>

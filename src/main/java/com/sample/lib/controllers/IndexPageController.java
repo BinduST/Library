@@ -7,16 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.net.UnknownHostException;
 
-
 @Controller
-public class IndexPageController extends WebMvcConfigurerAdapter {
+public class IndexPageController {
 
     @Autowired
     BaseDao baseDao;
@@ -49,18 +47,11 @@ public class IndexPageController extends WebMvcConfigurerAdapter {
         if (baseDao.findBy(username, password)) {
             response.addCookie(new Cookie("username", username));
             response.addCookie(new Cookie("password", password));
-            System.out.println(showAll());
+//            System.out.println(showAll());
             return "main";
         } else {
             System.out.println("Incorrect username or password");
             return "index";
         }
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.POST, params = {"take"})
-    public String showAll() throws UnknownHostException {
-        System.out.println("In take....");
-        System.out.println(baseDao.showAll() + "  == baseDao.showAll()");
-        return "main";
     }
 }

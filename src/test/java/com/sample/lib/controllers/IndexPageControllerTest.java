@@ -38,7 +38,7 @@ public class IndexPageControllerTest {
     public void shouldRenderTheLoginPageIfUserIsNotLoggedIn() throws Exception {
         String expected = "index";
         String actual = controller.showForm(new Student());
-        assertSame(actual, expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class IndexPageControllerTest {
         when(baseDao.insert(student)).thenReturn(true);
         String actual = controller.signUp(student, bindingResult, response);
 
-        assertSame(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class IndexPageControllerTest {
 
         String actual = controller.login(student, response);
 
-        assertSame(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test

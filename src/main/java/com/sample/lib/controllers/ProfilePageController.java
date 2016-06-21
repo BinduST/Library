@@ -1,7 +1,7 @@
 package com.sample.lib.controllers;
 
 import com.mongodb.DBObject;
-import com.sample.lib.dao.BaseDao;
+import com.sample.lib.dao.BooksDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +14,10 @@ import java.util.List;
 public class ProfilePageController {
 
     @Autowired
-    BaseDao baseDao;
+    BooksDao booksDao;
 
     @RequestMapping(value = "/main/getAllBookDetails", method = RequestMethod.GET)
     public List<DBObject> getAllBookDetails() throws UnknownHostException {
-        return baseDao.showAll();
+        return booksDao.showAll();
     }
 }

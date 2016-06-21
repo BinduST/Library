@@ -1,7 +1,7 @@
 package com.sample.lib.controllers;
 
 import com.mongodb.DBObject;
-import com.sample.lib.dao.BaseDao;
+import com.sample.lib.dao.BooksDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,23 +20,22 @@ public class ProfilePageControllerTest {
     ProfilePageController controller;
 
     @Mock
-    BaseDao mockBaseDao;
+    BooksDao mockBooksDao;
 
     @Test
     public void shouldCallGetAllBookDetailsAtLeastOnce() throws Exception {
         List<DBObject> expected = new ArrayList<>();
         controller.getAllBookDetails();
 
-        verify(mockBaseDao, atLeastOnce()).showAll();
+        verify(mockBooksDao, atLeastOnce()).showAll();
     }
 
     @Test
     public void shouldGetAllTheBooksAvailableAsAList() throws Exception {
         List<DBObject> expected = new ArrayList<>();
-        when(mockBaseDao.showAll()).thenReturn(expected);
+        when(mockBooksDao.showAll()).thenReturn(expected);
         List<DBObject> actual = controller.getAllBookDetails();
 
-        System.out.println(actual + " ---- " + expected);
         assertEquals(actual, expected);
     }
 }

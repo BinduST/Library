@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
-<form action="#" th:action="@{/}" th:object="${student}" method="post">
+<form action="#" th:action="@{/signUp}" th:object="${student}" method="post">
     <table>
         <tr>
             <td>Username:</td>
@@ -11,14 +11,11 @@
         <tr>
             <td>Password:</td>
             <td><input type="password" th:field="*{password}"/></td>
-            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Age Error</td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
         </tr>
         <tr>
             <td>
-                <input type="submit" name="login" value="Login"/>
-            </td>
-            <td>
-                <input type="submit" name="signup" value="Sign Up"/>
+                <input type="submit" name="signUp" value="Sign Up"/>
             </td>
         </tr>
     </table>

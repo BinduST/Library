@@ -1,7 +1,8 @@
 package com.sample.lib.controllers;
 
-import com.sample.lib.dao.BaseDao;
 import com.sample.lib.entities.Student;
+import com.sample.lib.services.LoginService;
+import com.sample.lib.services.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,44 +15,59 @@ import javax.validation.Valid;
 import java.net.UnknownHostException;
 
 @Controller
-public class IndexPageController {
+public class LoginPageController {
 
     @Autowired
-    BaseDao baseDao;
+    private SignUpService signUpService;
+
+    @Autowired
+    private LoginService loginService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showForm(Student student) {
-        return "index";
+    public String redirectToLoginPage() {
+        return "redirect:login";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, params = {"signup"})
-    public String signUp(@Valid Student student, BindingResult bindingResult, HttpServletResponse response) throws UnknownHostException {
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLoginPage(Student student) {
+        return "login";
+    }
+
+    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
+    public String showSignUpPage(Student student) {
+        return "signUp";
+    }
+
+    @RequestMapping(value = "/signUp.html", method = RequestMethod.GET)
+    public String redirectToSignUpPage(Student student) {
+        return "redirect:signUp";
+    }
+
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    public String signUp(@Valid Student student, BindingResult bindingResult) throws UnknownHostException {
         if (bindingResult.hasErrors())
-            return "index";
+            return "signUp";
         else {
-            if (baseDao.insert(student)) {
-                response.addCookie(new Cookie("username", student.getUsername()));
-                response.addCookie(new Cookie("password", student.getPassword()));
+            if (signUpService.register(student))
                 return "main";
-            } else {
+            else {
                 System.out.println("Username already exists !!!");
-                return "index";
+                return "signUp";
             }
         }
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, params = {"login"})
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@Valid Student student, HttpServletResponse response) throws UnknownHostException {
         String username = student.getUsername();
         String password = student.getPassword();
-        if (baseDao.findBy(username, password)) {
+        if (loginService.login(username, password)) {
             response.addCookie(new Cookie("username", username));
             response.addCookie(new Cookie("password", password));
-//            System.out.println(showAll());
             return "main";
         } else {
             System.out.println("Incorrect username or password");
-            return "index";
+            return "login";
         }
     }
 }

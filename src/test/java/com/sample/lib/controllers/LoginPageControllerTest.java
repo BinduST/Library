@@ -1,7 +1,8 @@
 package com.sample.lib.controllers;
 
 import com.sample.lib.entities.Student;
-import com.sample.lib.dao.BaseDao;
+import com.sample.lib.services.LoginService;
+import com.sample.lib.services.SignUpService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,17 +14,19 @@ import org.springframework.validation.BindingResult;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class IndexPageControllerTest {
+public class LoginPageControllerTest {
     @Mock
-    BaseDao baseDao;
+    SignUpService signUpService;
+
+    @Mock
+    LoginService loginService;
 
     @InjectMocks
-    IndexPageController controller;
+    LoginPageController controller;
 
     private static Student student;
 
@@ -36,8 +39,8 @@ public class IndexPageControllerTest {
 
     @Test
     public void shouldRenderTheLoginPageIfUserIsNotLoggedIn() throws Exception {
-        String expected = "index";
-        String actual = controller.showForm(new Student());
+        String expected = "login";
+        String actual = controller.showLoginPage(new Student());
         assertEquals(actual, expected);
     }
 
@@ -45,9 +48,8 @@ public class IndexPageControllerTest {
     public void shouldRenderTheProfilePageIfStudentHasRegistered() throws Exception {
         String expected = "main";
         BindingResult bindingResult = mock(BindingResult.class);
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        when(baseDao.insert(student)).thenReturn(true);
-        String actual = controller.signUp(student, bindingResult, response);
+        when(signUpService.register(student)).thenReturn(true);
+        String actual = controller.signUp(student, bindingResult);
 
         assertEquals(expected, actual);
     }
@@ -58,7 +60,7 @@ public class IndexPageControllerTest {
         HttpServletResponse response = mock(HttpServletResponse.class);
         String username = student.getUsername();
         String password = student.getPassword();
-        when(baseDao.findBy(username, password)).thenReturn(true);
+        when(loginService.login(username, password)).thenReturn(true);
 
         String actual = controller.login(student, response);
 
@@ -74,9 +76,8 @@ public class IndexPageControllerTest {
         BindingResult bindingResult = mock(BindingResult.class);
         when(bindingResult.hasErrors()).thenReturn(true);
 
-        HttpServletResponse response = mock(HttpServletResponse.class);
-        String actual = controller.signUp(student, bindingResult, response);
+        String actual = controller.signUp(student, bindingResult);
 
-        assertEquals("index", actual);
+        assertEquals("signUp", actual);
     }
 }

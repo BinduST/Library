@@ -5,7 +5,6 @@ import com.sample.lib.services.LoginService;
 import com.sample.lib.services.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,9 +15,6 @@ import java.net.UnknownHostException;
 
 @Controller
 public class LoginPageController {
-
-    @Autowired
-    private SignUpService signUpService;
 
     @Autowired
     private LoginService loginService;
@@ -41,20 +37,6 @@ public class LoginPageController {
     @RequestMapping(value = "/signUp.html", method = RequestMethod.GET)
     public String redirectToSignUpPage(Student student) {
         return "redirect:signUp";
-    }
-
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public String signUp(@Valid Student student, BindingResult bindingResult) throws UnknownHostException {
-        if (bindingResult.hasErrors())
-            return "signUp";
-        else {
-            if (signUpService.register(student))
-                return "main";
-            else {
-                System.out.println("Username already exists !!!");
-                return "signUp";
-            }
-        }
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

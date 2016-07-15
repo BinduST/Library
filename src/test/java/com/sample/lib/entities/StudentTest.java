@@ -13,7 +13,7 @@
 //    @BeforeClass
 //    public static void setUp() throws Exception {
 //        student = new Student();
-//        book = new Book(102, "William", "Way", "Oxford", 400);
+//        book = new Book();
 //        Librarian librarian = new Librarian("", "");
 //        librarian.register(book);
 //    }

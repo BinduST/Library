@@ -27,10 +27,10 @@ public class Librarian {
             DBCollection collection = db.getCollection("BookRegistry");
             BasicDBObject newBook = new BasicDBObject();
 
-            newBook.put("book_name", book.getBookName());
-            newBook.put("author", book.getAuthor());
-            newBook.put("publisher", book.getPublisher());
-            newBook.put("price", book.getPrice());
+//            newBook.put("book_name", book.getBookName());
+//            newBook.put("author", book.getAuthor());
+//            newBook.put("publisher", book.getPublisher());
+//            newBook.put("price", book.getPrice());
 
             collection.insert(newBook);
             return true;

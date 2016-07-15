@@ -1,37 +1,22 @@
 package com.sample.lib.entities;
 
+import lombok.Getter;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import static com.sample.lib.dao.DBConstants.COLLECTION_BOOK_REGISTRY;
+
+@Getter
+@Document(collection = COLLECTION_BOOK_REGISTRY)
 public class Book {
+    @Field
     private int isbn;
+    @Field
     private String bookName;
+    @Field
     private String author;
+    @Field
     private String publisher;
+    @Field
     private double price;
-
-    public Book(int isbn, String author, String bookName, String publisher, double price) {
-        this.isbn = isbn;
-        this.bookName = bookName;
-        this.author = author;
-        this.publisher = publisher;
-        this.price = price;
-    }
-
-    public int getIsbn() {
-        return isbn;
-    }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public double getPrice() {
-        return price;
-    }
 }

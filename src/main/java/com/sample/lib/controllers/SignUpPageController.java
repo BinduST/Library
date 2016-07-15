@@ -17,6 +17,16 @@ public class SignUpPageController {
     @Autowired
     private SignUpService signUpService;
 
+    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
+    public String showSignUpPage(Student student) {
+        return "signUp";
+    }
+
+    @RequestMapping(value = "/signUp.html", method = RequestMethod.GET)
+    public String redirectToSignUpPage(Student student) {
+        return "redirect:signUp";
+    }
+
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     public String signUp(@Valid Student student, BindingResult bindingResult) throws UnknownHostException {
         if (bindingResult.hasErrors())

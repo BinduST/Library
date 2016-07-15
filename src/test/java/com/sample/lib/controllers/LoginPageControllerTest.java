@@ -2,14 +2,12 @@ package com.sample.lib.controllers;
 
 import com.sample.lib.entities.Student;
 import com.sample.lib.services.LoginService;
-import com.sample.lib.services.SignUpService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.validation.BindingResult;
 
 import javax.servlet.http.HttpServletResponse;
 

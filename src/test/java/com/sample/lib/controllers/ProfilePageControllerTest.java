@@ -24,7 +24,6 @@ public class ProfilePageControllerTest {
 
     @Test
     public void shouldCallGetAllBookDetailsAtLeastOnce() throws Exception {
-        List<DBObject> expected = new ArrayList<>();
         controller.getAllBookDetails();
 
         verify(mockBooksDao, atLeastOnce()).showAll();

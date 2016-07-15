@@ -2,7 +2,6 @@ package com.sample.lib.controllers;
 
 import com.sample.lib.entities.Student;
 import com.sample.lib.services.LoginService;
-import com.sample.lib.services.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,16 +26,6 @@ public class LoginPageController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginPage(Student student) {
         return "login";
-    }
-
-    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
-    public String showSignUpPage(Student student) {
-        return "signUp";
-    }
-
-    @RequestMapping(value = "/signUp.html", method = RequestMethod.GET)
-    public String redirectToSignUpPage(Student student) {
-        return "redirect:signUp";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
